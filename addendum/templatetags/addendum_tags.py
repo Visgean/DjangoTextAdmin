@@ -2,6 +2,7 @@ from django import template
 from django.template.base import TemplateSyntaxError
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
+from modeltranslation.utils import auto_populate
 
 from ..models import Snippet
 
@@ -57,7 +58,7 @@ def snippet(parser, token):
 
 class SnippetNode(template.Node):
 
-    safe = False
+    safe = True
     template = False
 
     def __init__(self, nodelist, key, **options):
@@ -67,22 +68,25 @@ class SnippetNode(template.Node):
             setattr(self, k, v)
 
     def render(self, context):
-        try:
-            key = self.key.resolve(context)
-        except AttributeError:
-            key = self.key[1:-1]
-        snippet = Snippet.objects.get_from_cache(key=key)
-        if snippet is None:
-            output = self.nodelist.render(context)
-            return output
+        with auto_populate(True):
+            try:
+                key = self.key.resolve(context)
+            except AttributeError:
+                key = self.key[1:-1]
+            snippet = Snippet.objects.get_from_cache(key=key)
+            if snippet is None:
+                output = self.nodelist.render(context)
+                s = Snippet(key = key, text = output)
+                s.save()
+                return output
 
-        if self.template:
+            if self.template:
+                if self.safe:
+                    context.autoescape = False
+                    return mark_safe(template.Template(snippet.text).render(context))
+                return template.Template(snippet.text).render(context)
+
             if self.safe:
-                context.autoescape = False
-                return mark_safe(template.Template(snippet.text).render(context))
-            return template.Template(snippet.text).render(context)
+                return mark_safe(snippet.text)
 
-        if self.safe:
-            return mark_safe(snippet.text)
-
-        return conditional_escape(snippet.text)
+            return conditional_escape(snippet.text)

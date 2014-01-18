@@ -1,9 +1,10 @@
 from django.contrib import admin
+from modeltranslation.admin import TranslationAdmin
 
 from .models import Snippet
 
 
-class SnippetAdmin(admin.ModelAdmin):
+class SnippetAdmin(TranslationAdmin):
     list_display = ('key', 'text')
 
 
