@@ -1,8 +1,8 @@
 ===============
-Django Addendum
+Django Text Admin, based on Django Addendum
 ===============
 
-.. image:: https://api.travis-ci.org/wellfire/django-addendum.png?branch=master
+.. image:: https://travis-ci.org/Visgean/DjangoTextAdmin.png?branch=master
     :alt: Build Status
     :target: http://travis-ci.org/wellfire/django-addendum
 

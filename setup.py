@@ -7,7 +7,7 @@ with open('README.rst') as f:
     readme = f.read()
 
 setup(
-    name='django-addendum',
+    name='django-textadmin',
     version='0.1.0',
     description='Simple template-based content swapping for CMS-less sites',
     long_description=readme,
@@ -27,7 +27,7 @@ setup(
         'Framework :: Django',
     ],
     install_requires=[
-        'Django>=1.4',
+        'Django>=1.5',
     ],
     include_package_data=True,
 )
