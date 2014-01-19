@@ -25,6 +25,14 @@ And:
 This is all simple stuff and it's probably coded right into your templates.
 Changing it is easy enough, but requires a developer and then a release. Boo!
 
+
+Modification of this fork:
+=========================
+
+- There is support for modeltranslation
+- Autocreation of objects if placeholder is not in database
+
+
 Usage
 =====
 
@@ -54,14 +62,16 @@ Installation
 
 Install the package from PyPI::
 
-    pip install django-addendum
+    pip install -e git+git@github.com:Visgean/django-textadmin.git@master#egg=text_admin
 
 Add it to your `INSTALLED_APPS` tuple::
 
-    INSTALLED_APPS += ('addendum')
+    INSTALLED_APPS += ('text_admin')
 
 Sync your database or migrate if you have `South
 <south.readthedocs.org/en/latest/>`_ installed.
+
+You will also have to set up the modeltranslation and django redactor plugin 
 
 License
 =======
