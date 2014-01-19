@@ -8,4 +8,4 @@ install:
   - pip install -q Django==$DJANGO_VERSION
   - pip install -r requirements.txt
   - python setup.py -q install
-script: cd example && python manage.py test test_admin
+script: cd example && python manage.py test text_admin
