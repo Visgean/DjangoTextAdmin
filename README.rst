@@ -2,9 +2,9 @@
 Django Text Admin, based on Django Addendum
 ===============
 
-.. image:: https://travis-ci.org/Visgean/DjangoTextAdmin.png?branch=master
+.. image:: https://travis-ci.org/Visgean/django-textadmin.png?branch=master
     :alt: Build Status
-    :target: http://travis-ci.org/wellfire/django-addendum
+    :target: https://travis-ci.org/Visgean/django-textadmin
 
 Change snippets of copy on your site, on the fly, for any application, and
 without a full-fledged CMS.
