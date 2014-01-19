@@ -13,7 +13,7 @@ setup(
     long_description=readme,
     author='Ben Lopatin',
     author_email='ben.lopatin@wellfireinteractive.com',
-    url='https://github.com/wellfire/django-addendum',
+    url='https://github.com/Visgean/django-textadmin',
     license='BSD License',
     packages=find_packages(exclude=('example', 'docs')),
     platforms=['OS Independent'],
