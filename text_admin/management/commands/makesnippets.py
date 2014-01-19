@@ -4,7 +4,7 @@ import re
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
-from addendum.models import Snippet
+from text_admin.models import Snippet
 
 
 
