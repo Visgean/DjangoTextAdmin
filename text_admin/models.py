@@ -48,7 +48,7 @@ class RedactorCachedManager(models.Manager):
         value. If this is returned we know that the value should not be present
         in the database, either.
         """
-        snippet = cache.get('snippet:{0}'.format(key))
+        snippet = cache.get('rsnippet:{0}'.format(key))
 
         if snippet == -1:
             return None
@@ -56,10 +56,10 @@ class RedactorCachedManager(models.Manager):
         if snippet is None:
             try:
                 snippet = RedactorSnippet.objects.get(key=key)
-            except Snippet.DoesNotExist:
-                cache.set('snippet:{0}'.format(key), -1)
+            except RedactorSnippet.DoesNotExist:
+                cache.set('rsnippet:{0}'.format(key), -1)
             else:
-                cache.set('snippet:{0}'.format(key), snippet)
+                cache.set('rsnippet:{0}'.format(key), snippet)
 
         return snippet
 
@@ -86,7 +86,7 @@ class RedactorSnippet(models.Model):
     """
     key = models.CharField(max_length=100, primary_key=True)
     text = RedactorField()
-    objects = CachedManager()
+    objects = RedactorCachedManager()
 
     class Meta:
         ordering = ('key',)
@@ -107,3 +107,17 @@ def clear_cached_business(sender, **kwargs):
     """Remove the cached copy of the snippet after deletion"""
     instance = kwargs.pop('instance')
     cache.delete('snippet:{0}'.format(instance.key))
+
+
+@receiver(post_save, sender=RedactorSnippet)
+def set_cached_business(sender, **kwargs):
+    """Update the cached copy of the snippet on creation or change"""
+    instance = kwargs.pop('instance')
+    cache.set('rsnippet:{0}'.format(instance.key), instance)
+
+
+@receiver(post_delete, sender=RedactorSnippet)
+def clear_cached_business(sender, **kwargs):
+    """Remove the cached copy of the snippet after deletion"""
+    instance = kwargs.pop('instance')
+    cache.delete('rsnippet:{0}'.format(instance.key))
