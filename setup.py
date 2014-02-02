@@ -8,7 +8,7 @@ with open('README.rst') as f:
 
 setup(
     name='django-textadmin',
-    version='0.1.4',
+    version='0.1.5',
     description='Simple template-based content swapping for CMS-less sites',
     long_description=readme,
     author='Ben Lopatin',
