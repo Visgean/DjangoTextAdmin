@@ -157,10 +157,10 @@ class RedactorSnippetNode(template.Node):
                 key = self.key.resolve(context)
             except AttributeError:
                 key = self.key[1:-1]
-            snippet = Snippet.objects.get_from_cache(key=key)
+            snippet = RedactorSnippet.objects.get_from_cache(key=key)
             if snippet is None:
                 output = self.nodelist.render(context)
-                s = Snippet(key = key, text = output)
+                s = RedactorSnippet(key = key, text = output)
                 s.save()
                 return output
 
