@@ -104,9 +104,9 @@ def redactor_snippet(parser, token):
 
         {% redactor_snippet 'greeting' %}Hello world{% endsnippet %}
 
-        {% redactor_snippet 'greeting' richtext=True %}<p>Hey!</p>{% endsnippet %}
+        {% redactor_snippet 'greeting' richtext=True %}<p>Hey!</p>{% endredactor_snippet %}
     """
-    nodelist = parser.parse(('endsnippet',))
+    nodelist = parser.parse(('endredactor_snippet',))
     parser.delete_first_token()
     options = {}
 
