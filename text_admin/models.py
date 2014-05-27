@@ -96,28 +96,28 @@ class RedactorSnippet(models.Model):
 
 
 @receiver(post_save, sender=Snippet)
-def set_cached_business(sender, **kwargs):
+def cache_snippet(sender, **kwargs):
     """Update the cached copy of the snippet on creation or change"""
     instance = kwargs.pop('instance')
     cache.set('snippet:{0}'.format(instance.key), instance)
 
 
 @receiver(post_delete, sender=Snippet)
-def clear_cached_business(sender, **kwargs):
+def clear_snippet(sender, **kwargs):
     """Remove the cached copy of the snippet after deletion"""
     instance = kwargs.pop('instance')
     cache.delete('snippet:{0}'.format(instance.key))
 
 
 @receiver(post_save, sender=RedactorSnippet)
-def set_cached_business(sender, **kwargs):
+def cache_rsnippet(sender, **kwargs):
     """Update the cached copy of the snippet on creation or change"""
     instance = kwargs.pop('instance')
     cache.set('rsnippet:{0}'.format(instance.key), instance)
 
 
 @receiver(post_delete, sender=RedactorSnippet)
-def clear_cached_business(sender, **kwargs):
+def clear_rsnippet(sender, **kwargs):
     """Remove the cached copy of the snippet after deletion"""
     instance = kwargs.pop('instance')
     cache.delete('rsnippet:{0}'.format(instance.key))
